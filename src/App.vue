@@ -1,23 +1,26 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <ul>
+      <li v-for="todo in todos">{{ todo.text }}</li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'app'
+import Vue from 'vue'
+import { Component } from 'vue-property-decorator'
+
+@Component
+export default class App extends Vue {
+  todos = [{ text: "Buy milk" }]
 }
 </script>
 
+
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+html, body {
+  font-family: Helvetica;
+  font-size: 1.25rem;
 }
 </style>
