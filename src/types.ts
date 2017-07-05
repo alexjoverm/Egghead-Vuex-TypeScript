@@ -5,5 +5,6 @@ export interface State {
 
 // Models
 export interface Todo {
-  text: string
+  text: string,
+  checked: boolean
 }
