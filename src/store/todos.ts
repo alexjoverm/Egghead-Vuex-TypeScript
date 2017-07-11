@@ -20,6 +20,10 @@ export const mutations: MutationTree<State> = {
   addTodo(state, newTodo) {
     const todoCopy = Object.assign({}, newTodo)
     state.todos.push(todoCopy)
+  },
+  toggleTodo(state, todo) {
+    console.log(todo)
+    todo.checked = !todo.checked
   }
 }
 

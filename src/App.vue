@@ -2,16 +2,20 @@
   <div id="app">
     <h4>To do</h4>
     <ul>
-      <li v-for="todo in todos">{{ todo.text }}</li>
+      <li v-for="todo in todos">
+        <input type="checkbox" :checked="todo.checked" @change="toggleTodo(todo)"> {{ todo.text }}
+      </li>
     </ul>
 
     <h4>Done</h4>
     <ul>
-      <li v-for="done in dones">{{ done.text }}</li>
+      <li v-for="done in dones">
+        <input type="checkbox" :checked="done.checked" @change="toggleTodo(done)"> {{ done.text }}
+      </li>
     </ul>
 
-    <p>Add todo:<input type="text" v-model="newTodo.text" @keyup.enter="addTodo(newTodo)"></p>
-    <p>Add todo Async:<input type="text" v-model="id" @keyup.enter="addTodoAsync(id)"></p>
+    <p>Add todo: <input type="text" v-model="newTodo.text" @keyup.enter="addTodo(newTodo)"></p>
+    <p>Add Async: <input type="text" v-model="id" @keyup.enter="addTodoAsync(id)"></p>
   </div>
 </template>
 
@@ -27,6 +31,7 @@ export default class App extends Vue {
   @Getter dones: Todo[]
 
   @Mutation addTodo
+  @Mutation toggleTodo
   @Action addTodoAsync
 
   newTodo: Todo = {
@@ -43,6 +48,10 @@ export default class App extends Vue {
 <style>
 html, body {
   font-family: Helvetica;
+  font-size: 1.25rem;
+}
+
+input {
   font-size: 1.25rem;
 }
 </style>
