@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { state, getters, mutations, actions } from './todos'
+import { todos } from './todos'
+import { login } from './login'
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
-  state,
-  getters,
-  mutations,
-  actions
+  modules: {
+    todos,
+    login
+  }
 })

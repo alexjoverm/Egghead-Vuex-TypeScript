@@ -1,6 +1,11 @@
 // Store
-export interface State {
+export interface TodoState {
   todos: Todo[]
+}
+
+export interface LoginState {
+  user: string,
+  isLoggedIn: boolean
 }
 
 // Models
