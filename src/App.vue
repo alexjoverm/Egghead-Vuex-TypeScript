@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <button v-if="!login.isLoggedIn" @click="loginMutation">Login</button>
-    <p v-else>Hello {{ login.user }}</p>
+    <div v-if="login">
+      <button v-if="!login.isLoggedIn" @click="loginMutation">Login</button>
+      <p v-else>Hello {{ login.user }}</p>
+    </div>
 
     <h4>To do</h4>
     <ul>
@@ -26,7 +28,7 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { State, Getter, Mutation, Action } from 'vuex-class'
-import { Todo, LoginState } from './types'
+import { LoginState, Todo } from './types'
 
 @Component
 export default class App extends Vue {
