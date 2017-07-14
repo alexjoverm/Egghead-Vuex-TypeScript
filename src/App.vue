@@ -27,19 +27,25 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import { State, Getter, Mutation, Action } from 'vuex-class'
+import { State, Getter, Mutation, Action, namespace } from 'vuex-class'
 import { LoginState, Todo } from './types'
+
+const TodoGetter = namespace('todos', Getter)
+const TodoMutation = namespace('todos', Mutation)
+const TodoAction = namespace('todos', Action)
+
+const LoginMutation = namespace('login', Mutation)
 
 @Component
 export default class App extends Vue {
   @State login: LoginState
-  @Getter todos: Todo[]
-  @Getter dones: Todo[]
+  @TodoGetter todos: Todo[]
+  @TodoGetter dones: Todo[] // getters['todos/dones']
 
-  @Mutation('login') loginMutation
-  @Mutation addTodo
-  @Mutation toggleTodo
-  @Action addTodoAsync
+  @LoginMutation('login') loginMutation
+  @TodoMutation addTodo // mutations['todos/addTodo']
+  @TodoMutation toggleTodo
+  @TodoAction addTodoAsync
 
   newTodo: Todo = {
     text: '',

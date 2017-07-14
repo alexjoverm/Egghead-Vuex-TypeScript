@@ -1,4 +1,4 @@
-import { GetterTree, MutationTree, ActionTree } from 'vuex'
+import { GetterTree, MutationTree, ActionTree, Module } from 'vuex'
 import { RootState, TodoState, Todo } from '../types'
 
 type TodoGetter = GetterTree<TodoState, RootState>
@@ -42,11 +42,12 @@ export const actions: ActionTree<TodoState, RootState> = {
   }
 }
 
-export const todos = {
+export const todos: Module<TodoState, RootState> = {
   state,
   getters,
   mutations,
-  actions
+  actions,
+  namespaced: true
 }
 
 

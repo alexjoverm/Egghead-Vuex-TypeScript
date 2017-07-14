@@ -1,5 +1,5 @@
-import { Store, GetterTree, MutationTree } from 'vuex'
-import { LoginState } from '../types'
+import { Store, GetterTree, MutationTree, Module } from 'vuex'
+import { RootState, LoginState } from '../types'
 
 const state: LoginState = {
   user: '',
@@ -13,9 +13,10 @@ const mutations: MutationTree<LoginState> = {
   }
 }
 
-export const login = {
+export const login: Module<LoginState, RootState> = {
   state,
-  mutations
+  mutations,
+  namespaced: true
 }
 
 export function load(store: Store<any>) {
