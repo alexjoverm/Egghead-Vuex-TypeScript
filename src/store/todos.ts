@@ -1,7 +1,7 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex'
-import { TodoState, Todo } from '../types'
+import { RootState, TodoState, Todo } from '../types'
 
-type TodoGetter = GetterTree<TodoState, any>
+type TodoGetter = GetterTree<TodoState, RootState>
 
 export const state: TodoState = {
   todos: [
@@ -12,7 +12,8 @@ export const state: TodoState = {
 }
 
 export const getters: TodoGetter = {
-  todos: state => state.todos.filter(todo => !todo.checked),
+  // With 3 parameters, you access the root state
+  todos: (state, getters, rootState) => state.todos.filter(todo => !todo.checked),
   dones: state => state.todos.filter(todo => todo.checked)
 }
 
@@ -22,19 +23,18 @@ export const mutations: MutationTree<TodoState> = {
     state.todos.push(todoCopy)
   },
   toggleTodo(state, todo) {
-    console.log(todo)
     todo.checked = !todo.checked
   }
 }
 
-export const actions: ActionTree<TodoState, any> = {
-  addTodoAsync({commit}, id) {
+export const actions: ActionTree<TodoState, RootState> = {
+  addTodoAsync({commit, rootState}, id) {
     fetch('https://jsonplaceholder.typicode.com/posts/' + id)
       .then(data => data.json())
       .then(item => {
         const todo: Todo = {
           checked: false,
-          text: item.title
+          text: rootState.login.user + ': ' + item.title
         }
 
         commit('addTodo', todo)
