@@ -1,5 +1,6 @@
 // Store
 export interface RootState {
+  count: number
   todos: TodoState
   login: LoginState
 }
