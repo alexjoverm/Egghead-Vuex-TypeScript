@@ -1,5 +1,5 @@
 import { Store, Module } from 'vuex'
-import { HistoryState, RootState, Payload } from '../types'
+import { HistoryState, PluginOptions, RootState, Payload } from '../types'
 
 const historyModule: Module<HistoryState, RootState> = {
   state: {
@@ -8,18 +8,35 @@ const historyModule: Module<HistoryState, RootState> = {
   mutations: {
     add(state, mutation) {
       state.history.push(mutation)
+    },
+    save(state) {
+      localStorage.setItem('history', JSON.stringify(state.history))
+    },
+    load(state) {
+      state.history = JSON.parse(localStorage.getItem('history') || '[]')
     }
   },
   namespaced: true
 }
 
-export const history = (store: Store<RootState>) => {
+export const history = (options: PluginOptions = {}) =>
+  (store: Store<RootState>) => {
+    const ignoreMutations = ['history/add', 'history/save']
+
     store.registerModule('history', historyModule)
 
+    if (options.persist) {
+      store.commit('history/load')
+    }
+
     store.subscribe((mutation: Payload, state) => {
-      if (mutation.type !== 'history/add') {
+      if (!ignoreMutations.includes(mutation.type)) {
         console.log(mutation)
         store.commit('history/add', mutation)
+
+        if (options.persist) {
+          store.commit('history/save')
+        }
       }
     })
   }

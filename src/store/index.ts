@@ -17,7 +17,9 @@ export const store = new Vuex.Store({
   modules: {
     todos
   },
-  plugins: [history]
+  plugins: [history({
+    persist: true
+  })]
 })
 
 

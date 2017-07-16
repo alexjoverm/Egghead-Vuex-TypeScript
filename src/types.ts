@@ -23,6 +23,10 @@ export interface Payload {
   payload?: any;
 }
 
+export interface PluginOptions {
+  persist?: boolean
+}
+
 // Models
 export interface Todo {
   text: string,
