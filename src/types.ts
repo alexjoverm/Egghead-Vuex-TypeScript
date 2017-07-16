@@ -14,6 +14,15 @@ export interface LoginState {
   isLoggedIn: boolean
 }
 
+export interface HistoryState {
+  history: Payload[]
+}
+
+export interface Payload {
+  type: string;
+  payload?: any;
+}
+
 // Models
 export interface Todo {
   text: string,
