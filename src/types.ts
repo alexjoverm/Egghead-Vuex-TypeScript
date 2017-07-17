@@ -1,8 +1,11 @@
+import { MutationPayload } from 'vuex'
+
 // Store
 export interface RootState {
   count: number
   todos: TodoState
   login: LoginState
+  history: HistoryState
 }
 
 export interface TodoState {
@@ -15,12 +18,11 @@ export interface LoginState {
 }
 
 export interface HistoryState {
-  history: Payload[]
+  history: MutationPayload[]
 }
 
-export interface Payload {
-  type: string;
-  payload?: any;
+export interface PluginOptions {
+  persist?: boolean
 }
 
 // Models
